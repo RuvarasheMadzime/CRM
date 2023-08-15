@@ -1,12 +1,18 @@
 {% extends 'base.html' %}
 {% block content %}
 <div class="card">
-    <div class="card-header">
-       <strong> {{product_records.id}} 
-      
-      
-    </div>
-  </div> 
+  <div class="card-header">
+     <strong> {{product_record.ProductType}} 
+  </div>
+  <div class="card-body">
+    <p class="card-text">
+      <strong>Category: </strong>{{product_record.category}}<br/>
+      <strong>Price: </strong>{{product_record.price}}<br/>
+      <strong>Description: </strong>{{product_record.description}}<br/>
+    </p>
+    
+  </div>
+</div>
   <br/><br/>
 
   <a href="{% url 'home' %}" class="btn btn-secondary">Back</a>
