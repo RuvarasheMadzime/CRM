@@ -14,6 +14,18 @@ class Record(models.Model):
     def __str__(self):
         return(f"{self.first_name} {self.last_name}")
     
+class Product(models.Model):
+    ItemId=models.CharField(max_length = 50)
+    ProductType=models.CharField(max_length = 50)#dress,jean,jacket etc
+    category=models.CharField(max_length = 50)#Men,Women,Kids
+    price=models.IntegerField()
+    description=models.CharField(max_length = 50)
+
+    def __str__(self):
+        return(f"{self.ItemId} {self.price}")
+    
+
+    
 
 
 

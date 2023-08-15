@@ -10,7 +10,16 @@
           <li class="nav-item">
             <a class="nav-link" href="{% url 'add_record' %}" >Add Record</a>
           </li>
+          {% if user.is_staff %}
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'add_products' %}" >Add Product</a>
+          </li>
           
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'update_product' product_record.id %}" >Update Product</a>
+          </li>
+          
+          {% endif %}
           <li class="nav-item">
             <a class="nav-link" href="{% url 'logout' %}" >Logout</a>
           </li>

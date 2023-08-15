@@ -1,7 +1,7 @@
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 from django import forms
-from .models import Record
+from .models import Record,Product
 
 
 class SignUpForm(UserCreationForm):
@@ -50,3 +50,13 @@ class AddRecordForm(forms.ModelForm):
       exclude = ("user",)
 
 
+class AddProductForm(forms.ModelForm):
+   ItemId= forms.CharField(required = True, widget = forms.widgets.TextInput(attrs = {"Placeholder":"First Name", "class":"form-control"}),label="")
+   ProductType=forms.CharField(required = True, widget = forms.widgets.TextInput(attrs = {"Placeholder":"First Name", "class":"form-control"}),label="")
+   category=forms.CharField(required = True, widget = forms.widgets.TextInput(attrs = {"Placeholder":"First Name", "class":"form-control"}),label="")
+   price=forms.CharField(required = True, widget = forms.widgets.TextInput(attrs = {"Placeholder":"First Name", "class":"form-control"}),label="")
+   description=forms.CharField(required = True, widget = forms.widgets.TextInput(attrs = {"Placeholder":"First Name", "class":"form-control"}),label="")
+   
+   class Meta:
+      model = Product
+      exclude = ("user",)
