@@ -9,6 +9,7 @@ from .models import Record, Product
 # Create your views here.
 def home(request):
     records = Record.objects.all()
+    products=Product.objects.all()
 
     #check to see if logging in
     if request.method == 'POST':
@@ -24,7 +25,7 @@ def home(request):
             messages.success(request,"There was an error loggin in, Please try again...")
             return redirect('home')
     else:
-        return render(request, 'home.html', {'records' : records})
+        return render(request, 'home.html', {'records' : records, 'products':products})
 
 
 def logout_user(request):
@@ -56,6 +57,14 @@ def customer_record(request, pk):
     else:
         messages.success(request,"You must be logged in to view that page!")
         return redirect('home')
+    
+def product_record(request, pk):
+    if request.user.is_authenticated:
+        product_record=Product.objects.get(id=pk)
+        return render(request, 'product.html', {'product_record':product_record})
+    else:
+        messages.success(request,"You must be logged in to view that page!")
+        return redirect('home')
 
 
 
@@ -81,6 +90,20 @@ def add_record(request):
     else:
        messages.success(request, "You must be logged in!")
        return redirect('home') 
+
+def add_product(request):
+    form = AddProductForm(request.POST or None)
+    if request.user.is_authenticated:
+        if request.method == "POST":
+            if form.is_valid():
+                add_product=form.save()
+                messages.success(request, "Product Added....")
+                return redirect('home')
+        return render(request, 'add_products.html', {'form':form})
+    else:
+       messages.success(request, "You must be logged in!")
+       return redirect('home') 
+    
     
 def update_record(request,pk):
     if request.user.is_authenticated:
@@ -94,6 +117,7 @@ def update_record(request,pk):
     else:
         messages.success(request, "Must be logged In...")
         return redirect('home')
+    
 def update_product(request,pk):
     if request.user.is_authenticated:
         current_record = Product.objects.get(id=pk)
@@ -108,19 +132,7 @@ def update_product(request,pk):
         return redirect('home')
 
 
-def add_product(request):
-    form = AddProductForm(request.POST or None)
-    if request.user.is_staff:
-        if request.method == "POST":
-            if form.is_valid():
-                form.save()
-                messages.success(request, "Record Added....")
-                return redirect('home')
-        return render(request, 'add_products.html', {'form':form})
-    else:
-       messages.success(request, "You must be logged in!")
-       return redirect('home') 
-    
+
 
 
 
